@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TestScript : MonoBehaviour
 {
-    // Test Scripted
+    // Test Scripts
 
 
 }
