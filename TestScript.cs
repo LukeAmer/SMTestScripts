@@ -10,7 +10,9 @@ public class TestScript : MonoBehaviour
 
     void Start()
     {
-        
+
+        num = num + 20;
+        Debug.Log(num);
 
     }
 
