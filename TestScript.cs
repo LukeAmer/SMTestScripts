@@ -5,14 +5,18 @@ public class TestScript : MonoBehaviour
 {
     // Test Scripts
 
-    int num = 10;
-
+    int num2 = 10;
+    int num3 = 1;
 
     void Start()
     {
 
-        num = num + 20;
-        Debug.Log(num);
+        num2 *= 50;
+        num2 = num2 + 20;
+        
+        Debug.Log(num2);
+
+        Debug.Log("Alright m8?");
 
     }
 
