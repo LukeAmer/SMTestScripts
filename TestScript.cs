@@ -12,13 +12,20 @@ public class TestScript : MonoBehaviour
 
         AddNum(ref i);
 
+        SubNum(ref i);
+
         Debug.Log(i);
 
     }
 
     void AddNum(ref int num)
     {
-        num += 10;
+        num += 5;
+    }
+
+    void SubNum(ref int num)
+    {
+        num -= 8;
     }
 
 
