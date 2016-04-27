@@ -5,7 +5,7 @@ public class TestScript : MonoBehaviour
 {
     // Test Scripts
 
-    int num = 5;
+    int num = 10;
 
 
     void Start()
