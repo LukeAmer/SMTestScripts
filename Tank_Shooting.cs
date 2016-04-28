@@ -24,9 +24,9 @@ public class Tank_Shooting : MonoBehaviour {
         {
             shotPower += powerSpeed * Time.deltaTime;
 
-            if (shotPower >= 100.0f)
+            if (shotPower >= 1000.0f)
             {
-                shotPower = 100.0f;
+                shotPower = 1000.0f;
             }
             powerSlider.value = shotPower;
         }
