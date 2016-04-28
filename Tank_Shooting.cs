@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using InControl;
 
 public class Tank_Shooting : MonoBehaviour {
 
@@ -12,6 +13,7 @@ public class Tank_Shooting : MonoBehaviour {
     public bool fireBullet = false;
 	// Use this for initialization
 
+
 	void Start ()
     {
         powerSlider.value = shotPower;
@@ -20,7 +22,8 @@ public class Tank_Shooting : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-	    if (Input.GetKey(KeyCode.Space) || Input.GetButton("Shoot"))
+        var inputDevice = InputManager.ActiveDevice;
+        if (Input.GetKey(KeyCode.Space) || inputDevice.RightTrigger.IsPressed)
         {
             shotPower += powerSpeed * Time.deltaTime;
 
@@ -29,7 +32,7 @@ public class Tank_Shooting : MonoBehaviour {
                 shotPower = 1000.0f;
             }
             powerSlider.value = shotPower;
-        }
+        } 
 
         if (fireBullet)
         {
@@ -38,13 +41,17 @@ public class Tank_Shooting : MonoBehaviour {
             fireBullet = false;
         }
         Fire();
+
+       // Debug.Log(inputDevice.RightBumper.IsPressed);
 	}
     
 
     public void Fire()
     {
-        if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Shoot"))
+        var inputDevice = InputManager.ActiveDevice;
+        if (inputDevice.RightTrigger.WasReleased)
         {
+            
             GameObject bullet = (GameObject)Instantiate(Rocket, turretPos.transform.position, turretPos.rotation);
             bullet.name = Rocket.name;
             fireBullet = true;
