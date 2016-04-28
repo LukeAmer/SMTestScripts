@@ -18,8 +18,6 @@ public class TestScript : MonoBehaviour
 
         TimesNum(ref i);
 
-        Debug.Log("**RESULT >>> " + i + " <<< RESULT**");
-
     }
 
     void Update()
@@ -27,6 +25,7 @@ public class TestScript : MonoBehaviour
         if (pls)
         {
             SubNum(ref i);
+            Debug.Log("**RESULT >>> " + i + " <<< RESULT**");
             pls = false;
         }
     }
