@@ -5,10 +5,12 @@ public class TestScript : MonoBehaviour
 {
     // Test Scripts
 
-
+    private bool pls = false;
+    int i = 20;
     void Start()
     {
-        int i = 20;
+        pls = true;
+
 
         AddNum(ref i);
 
@@ -16,12 +18,17 @@ public class TestScript : MonoBehaviour
 
         TimesNum(ref i);
 
-        Debug.Log("The Result is...");
-        Debug.Log("Below...");
-        Debug.Log("vvvvv");
-
         Debug.Log("**RESULT >>> " + i + " <<< RESULT**");
 
+    }
+
+    void Update()
+    {
+        if (pls)
+        {
+            SubNum(ref i);
+            pls = false;
+        }
     }
 
     void AddNum(ref int num)
