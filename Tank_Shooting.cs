@@ -31,6 +31,12 @@ public class Tank_Shooting : MonoBehaviour {
             powerSlider.value = shotPower;
         }
 
+        if (fireBullet)
+        {
+            shotPower = 0.0f;
+           powerSlider.value = shotPower;
+            fireBullet = false;
+        }
         Fire();
 	}
     
@@ -41,6 +47,7 @@ public class Tank_Shooting : MonoBehaviour {
         {
             GameObject bullet = (GameObject)Instantiate(Rocket, turretPos.transform.position, turretPos.rotation);
             bullet.name = Rocket.name;
+            fireBullet = true;
         }
 
     }
