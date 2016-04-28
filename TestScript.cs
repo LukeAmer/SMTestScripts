@@ -5,27 +5,44 @@ public class TestScript : MonoBehaviour
 {
     // Test Scripts
 
-    int num2 = 10;
-    int num3 = 1;
-
-    float num = 100.0f;
-
-
+    private bool pls = false;
+    int i = 20;
     void Start()
     {
-        num2 *= 50;
-        num2 = num2 + 20;
-        
-        Debug.Log(num2);
+        pls = true;
 
-        Debug.Log("Alright m8?");
 
-        num = num + 20.0f;
-        num = 0.0f;
-        Debug.Log("Result: " + num);
+        AddNum(ref i);
+
+        SubNum(ref i);
+
+        TimesNum(ref i);
 
     }
 
+    void Update()
+    {
+        if (pls)
+        {
+            SubNum(ref i);
+            Debug.Log("**RESULT >>> " + i + " <<< RESULT**");
+            pls = false;
+        }
+    }
 
+    void AddNum(ref int num)
+    {
+        num += 5;
+    }
+
+    void SubNum(ref int num)
+    {
+        num -= 8;
+    }
+
+    void TimesNum(ref int num)
+    {
+        num *= 2;
+    }
 
 }
