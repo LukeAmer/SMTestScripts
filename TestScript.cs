@@ -16,6 +16,9 @@ public class TestScript : MonoBehaviour
 
         TimesNum(ref i);
 
+        Debug.Log("The Result is...");
+        Debug.Log("Below...");
+
         Debug.Log(i);
 
     }
