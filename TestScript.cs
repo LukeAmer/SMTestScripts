@@ -8,7 +8,7 @@ public class TestScript : MonoBehaviour
 
     void Start()
     {
-        int i = 10;
+        int i = 5;
 
         AddNum(ref i);
 
