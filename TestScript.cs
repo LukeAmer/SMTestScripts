@@ -9,11 +9,9 @@ public class TestScript : MonoBehaviour
     int i = 20;
     void Start()
     {
-<<<<<<< HEAD
         pls = true;
-=======
         int i = 30;
->>>>>>> origin/TestBranch2
+
 
 
         AddNum(ref i);
