@@ -14,6 +14,8 @@ public class TestScript : MonoBehaviour
 
         SubNum(ref i);
 
+        TimesNum(ref i);
+
         Debug.Log(i);
 
     }
@@ -28,5 +30,9 @@ public class TestScript : MonoBehaviour
         num -= 8;
     }
 
+    void TimesNum(ref int num)
+    {
+        num *= 2;
+    }
 
 }
