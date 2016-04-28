@@ -16,7 +16,11 @@ public class TestScript : MonoBehaviour
 
         TimesNum(ref i);
 
-        Debug.Log(i);
+        Debug.Log("The Result is...");
+        Debug.Log("Below...");
+        Debug.Log("vvvvv");
+
+        Debug.Log("**RESULT >>> " + i + " <<< RESULT**");
 
     }
 
