@@ -5,8 +5,11 @@ using UnityEngine.UI;
 public class Tank_Shooting : MonoBehaviour {
 
     public float powerSpeed = 0.0f;
-    [SerializeField]private float shotPower = 0.0f;
+    public float shotPower = 0.0f;
     public Slider powerSlider;
+    public Transform turretPos;
+    public GameObject Rocket;
+    public bool fireBullet = false;
 	// Use this for initialization
 
 	void Start ()
@@ -27,5 +30,20 @@ public class Tank_Shooting : MonoBehaviour {
             }
             powerSlider.value = shotPower;
         }
+
+        Fire();
 	}
+    
+
+    public void Fire()
+    {
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            GameObject bullet = (GameObject)Instantiate(Rocket, turretPos.transform.position, turretPos.rotation);
+            bullet.name = Rocket.name;
+        }
+
+    }
+
+
 }
