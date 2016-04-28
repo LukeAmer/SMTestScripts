@@ -20,7 +20,7 @@ public class Tank_Shooting : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-	    if (Input.GetKey(KeyCode.Space))
+	    if (Input.GetKey(KeyCode.Space) || Input.GetButton("Shoot"))
         {
             shotPower += powerSpeed * Time.deltaTime;
 
@@ -43,7 +43,7 @@ public class Tank_Shooting : MonoBehaviour {
 
     public void Fire()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Shoot"))
         {
             GameObject bullet = (GameObject)Instantiate(Rocket, turretPos.transform.position, turretPos.rotation);
             bullet.name = Rocket.name;
