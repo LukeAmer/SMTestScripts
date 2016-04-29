@@ -5,8 +5,10 @@ using InControl;
 
 public class PlayerManager : MonoBehaviour
 {
-    public List<PlayerControl> players;
-    public GameObject testPlayer;
+    public List<PlayerControl> connectedPlayers;
+    public List<GameObject> totalPlayers;
+    public GameObject playerTank;
+    public GameObject[] playerSpawns;
 
 	// Use this for initialization
 	void Start ()
@@ -23,23 +25,41 @@ public class PlayerManager : MonoBehaviour
         {
             if(FindPlayerUsingDevice(inputDevice) == null)
             {
-                players.Add(testPlayer.GetComponent<PlayerControl>());
-                testPlayer.GetComponent<PlayerControl>().Device = inputDevice;
-                testPlayer.SetActive(true);
+                if (CheckForPlayersWithoutDevice() != null)
+                {
+                    PlayerControl playerFound = CheckForPlayersWithoutDevice();
+
+                    playerFound.Device = inputDevice;
+                    connectedPlayers.Add(playerFound);
+                }
+                else
+                {
+                    // Spawn New Player Tank
+                    GameObject newPlayer = Instantiate(playerTank, playerSpawns[totalPlayers.Count].transform.position, Quaternion.identity) as GameObject;
+
+                    connectedPlayers.Add(newPlayer.GetComponent<PlayerControl>());
+                    totalPlayers.Add(newPlayer);
+
+                    newPlayer.GetComponent<PlayerControl>().Device = inputDevice;
+
+                    if (newPlayer.GetComponent<PlayerControl>().playerNumber == 100)
+                        newPlayer.GetComponent<PlayerControl>().playerNumber = totalPlayers.Count;
+                }
+
             }
         }
 
-        Debug.Log(players.Count);
+        //Debug.Log(connectedPlayers.Count);
     }
 
     PlayerControl FindPlayerUsingDevice(InputDevice device)
     {
         PlayerControl playerFound = null;
 
-        for(int i = 0; i < players.Count; i++)
+        for(int i = 0; i < connectedPlayers.Count; i++)
         {
-            if (players[i].Device == device)
-                playerFound = players[i];
+            if (connectedPlayers[i].Device == device)
+                playerFound = connectedPlayers[i];
         }
 
         return playerFound;
@@ -47,12 +67,30 @@ public class PlayerManager : MonoBehaviour
 
     void OnDeviceDetached(InputDevice inputDevice)
     {
+        // Unity Detaches both controllers when one controller has been disconnected 
         PlayerControl player = FindPlayerUsingDevice(inputDevice);
 
         if(player != null)
         {
+            Debug.Log("Controller Removed");
             player.Device = null;
-            players.Remove(player);
+            connectedPlayers.Remove(player);
         }
     }
+
+    PlayerControl CheckForPlayersWithoutDevice()
+    {
+        PlayerControl playerFound = null;
+
+        for(int i = 0; i < totalPlayers.Count; i++)
+        {
+            if(totalPlayers[i].GetComponent<PlayerControl>().Device == null)
+            {
+                playerFound = totalPlayers[i].GetComponent<PlayerControl>();
+            }
+        }
+
+        return playerFound;
+    }
+
 }
