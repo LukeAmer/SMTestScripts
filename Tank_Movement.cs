@@ -7,6 +7,9 @@ public class Tank_Movement : MonoBehaviour
     public float maxSpeed = 2.0f;
     public float maxRot = 5.0f;
 
+    [SerializeField]
+    PlayerControl playerControl;
+
     float speed = 0.0f;
     float rotationSpeed = 0.0f;
 
@@ -20,37 +23,40 @@ public class Tank_Movement : MonoBehaviour
 	void FixedUpdate ()
     {
         // Use last device which provided input.
-        var inputDevice = InputManager.ActiveDevice;
+        var inputDevice = playerControl.Device;
 
-        // Movement
-        if(inputDevice.LeftStick.Y > 0.1f || inputDevice.LeftStick.Y < -0.1f)
+        if (inputDevice != null)
         {
-            // Update Acc
-            ChangeAcc(inputDevice.LeftStick.Y);
-        }
-        else
-        {
-            // Decrease Acc
-            DecreaseAcc();
-        }
+            // Movement
+            if (inputDevice.LeftStick.Y > 0.1f || inputDevice.LeftStick.Y < -0.1f)
+            {
+                // Update Acc
+                ChangeAcc(inputDevice.LeftStick.Y);
+            }
+            else
+            {
+                // Decrease Acc
+                DecreaseAcc();
+            }
 
-        // Move via translation from speed value
-        Move();
+            // Move via translation from speed value
+            Move();
 
 
-        // Rotation
-        if (inputDevice.LeftStick.X > 0.1f || inputDevice.LeftStick.X < -0.1f)
-        {
-            //RotateBase(inputDevice.LeftStick.X);
-            ChangeRotAcc(inputDevice.LeftStick.X);
+            // Rotation
+            if (inputDevice.LeftStick.X > 0.1f || inputDevice.LeftStick.X < -0.1f)
+            {
+                //RotateBase(inputDevice.LeftStick.X);
+                ChangeRotAcc(inputDevice.LeftStick.X);
+            }
+            else
+            {
+                DecreaseRotSpeed();
+            }
+
+            // Rotate
+            RotateBase();
         }
-        else
-        {
-            DecreaseRotSpeed();
-        }
-
-        // Rotate
-        RotateBase();
 
     }
 
