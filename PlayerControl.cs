@@ -4,7 +4,7 @@ using InControl;
 
 public class PlayerControl : MonoBehaviour
 {
-    public int playerNumber;
+    public int playerNumber = 100;
     public InputDevice Device;
 
     // Use this for initialization
