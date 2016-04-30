@@ -88,6 +88,10 @@ public class Tank_Movement : MonoBehaviour
             else
                 speed += dir * 2.0f * Time.deltaTime;
         }
+        else
+        {
+            DecreaseAcc();
+        }
     }
 
     void ChangeRotAcc(float dir)
