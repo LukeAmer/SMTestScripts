@@ -16,6 +16,10 @@ public class Luke_TankShoot : MonoBehaviour
     [SerializeField]
     Animator turretShootAnim;
     [SerializeField]
+    GameObject aimAid;
+    [SerializeField]
+    Material[] aimAidMats;
+    [SerializeField]
     PlayerControl playerControl;
 
     [SerializeField]
@@ -52,6 +56,17 @@ public class Luke_TankShoot : MonoBehaviour
                 Debug.Log(power);
             }
 
+            
+            aimAid.GetComponent<LineRenderer>().SetPosition(0, aimAid.transform.position);
+            aimAid.GetComponent<LineRenderer>().SetPosition(1, aimAid.transform.position + aimAid.transform.forward * (power - 10.0f) / 2.0f);
+
+            Material[] mats = aimAid.GetComponent<LineRenderer>().materials;
+            mats[0] = aimAidMats[playerControl.playerNumber - 1];
+            aimAid.GetComponent<LineRenderer>().materials = mats;
+
+            aimAid.GetComponent<LineRenderer>().enabled = true;
+
+
         }
         else
         {
@@ -66,6 +81,7 @@ public class Luke_TankShoot : MonoBehaviour
 
             power = 10.0f;
             turretPowerBar.SetBool("IncreasePowerBar", false);
+            aimAid.GetComponent<LineRenderer>().enabled = false;
         }
 
         if(cooldown > 0.0f)

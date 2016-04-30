@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BulletControl : MonoBehaviour
 {
-    public float bulletDamage = 25.0f;
+    public int bulletDamage = 25;
     public GameObject hitEffect;
     public AudioClip hitSound;
 
@@ -74,6 +74,8 @@ public class BulletControl : MonoBehaviour
                 Destroy(audioSource, 5.0f);
 
                 tankHit.gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 5.0f, ForceMode.Impulse);
+
+                tankHit.playerHealth -= bulletDamage;
 
                 Destroy(gameObject);
             }
