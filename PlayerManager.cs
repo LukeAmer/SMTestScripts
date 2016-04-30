@@ -36,6 +36,7 @@ public class PlayerManager : MonoBehaviour
                 {
                     // Spawn New Player Tank
                     GameObject newPlayer = Instantiate(playerTank, playerSpawns[totalPlayers.Count].transform.position, Quaternion.identity) as GameObject;
+                    newPlayer.transform.eulerAngles = playerSpawns[totalPlayers.Count].transform.eulerAngles;
 
                     connectedPlayers.Add(newPlayer.GetComponent<PlayerControl>());
                     totalPlayers.Add(newPlayer);
