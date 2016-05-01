@@ -43,50 +43,52 @@ public class Luke_TankShoot : MonoBehaviour
     {
         var inputDevice = playerControl.Device;
 
-
-        if(inputDevice.RightTrigger.IsPressed && cooldown <= 0.0f)
+        if (inputDevice != null)
         {
-            // Power Up
-            turretPowerBar.SetBool("IncreasePowerBar", true);
-
-            // Still increasing?
-            if(turretPowerBar.GetCurrentAnimatorStateInfo(0).IsName("PowerBar"))
+            if (inputDevice.RightTrigger.IsPressed && cooldown <= 0.0f)
             {
-                power += powerIncreaseRate * Time.deltaTime;
-                Debug.Log(power);
+                // Power Up
+                turretPowerBar.SetBool("IncreasePowerBar", true);
+
+                // Still increasing?
+                if (turretPowerBar.GetCurrentAnimatorStateInfo(0).IsName("PowerBar"))
+                {
+                    power += powerIncreaseRate * Time.deltaTime;
+                    Debug.Log(power);
+                }
+
+
+                aimAid.GetComponent<LineRenderer>().SetPosition(0, aimAid.transform.position);
+                aimAid.GetComponent<LineRenderer>().SetPosition(1, aimAid.transform.position + aimAid.transform.forward * (power - 10.0f) / 2.0f);
+
+                Material[] mats = aimAid.GetComponent<LineRenderer>().materials;
+                mats[0] = aimAidMats[playerControl.playerNumber - 1];
+                aimAid.GetComponent<LineRenderer>().materials = mats;
+
+                aimAid.GetComponent<LineRenderer>().enabled = true;
+
+
+            }
+            else
+            {
+                if (power > 10.0f)
+                {
+                    // Shoot
+                    Shoot();
+
+                    // Set Cooldown
+                    cooldown = cooldownTime;
+                }
+
+                power = 10.0f;
+                turretPowerBar.SetBool("IncreasePowerBar", false);
+                aimAid.GetComponent<LineRenderer>().enabled = false;
             }
 
-            
-            aimAid.GetComponent<LineRenderer>().SetPosition(0, aimAid.transform.position);
-            aimAid.GetComponent<LineRenderer>().SetPosition(1, aimAid.transform.position + aimAid.transform.forward * (power - 10.0f) / 2.0f);
-
-            Material[] mats = aimAid.GetComponent<LineRenderer>().materials;
-            mats[0] = aimAidMats[playerControl.playerNumber - 1];
-            aimAid.GetComponent<LineRenderer>().materials = mats;
-
-            aimAid.GetComponent<LineRenderer>().enabled = true;
-
-
-        }
-        else
-        {
-            if(power > 10.0f)
+            if (cooldown > 0.0f)
             {
-                // Shoot
-                Shoot();
-
-                // Set Cooldown
-                cooldown = cooldownTime;
+                cooldown -= 1.0f * Time.deltaTime;
             }
-
-            power = 10.0f;
-            turretPowerBar.SetBool("IncreasePowerBar", false);
-            aimAid.GetComponent<LineRenderer>().enabled = false;
-        }
-
-        if(cooldown > 0.0f)
-        {
-            cooldown -= 1.0f * Time.deltaTime;
         }
 
     }

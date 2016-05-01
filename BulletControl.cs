@@ -50,7 +50,7 @@ public class BulletControl : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.tag == "Tank")
+        if(col.gameObject.tag == "Tank" && col.gameObject.transform.parent.gameObject.GetComponent<PlayerControl>() != null)
         {
             PlayerControl tankHit = col.gameObject.transform.parent.gameObject.GetComponent<PlayerControl>();
 

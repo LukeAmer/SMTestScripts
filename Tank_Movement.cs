@@ -1,22 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
 using InControl;
+using UnityEngine.UI;
 
 public class Tank_Movement : MonoBehaviour
 {
     public float maxSpeed = 2.0f;
     public float maxRot = 5.0f;
+    public float sprintTime = 0.0f;
+    public float sprintCooldownTime = 10.0f;
 
     [SerializeField]
     PlayerControl playerControl;
 
     float speed = 0.0f;
     float rotationSpeed = 0.0f;
+    float sprintCooldown = 0.0f;
+    bool isSprint = false;
+
+    Player_UIControl playerUI;
 
 	// Use this for initialization
 	void Start ()
     {
-	
+        playerUI = gameObject.GetComponent<Player_UI>().UIControl;
 	}
 	
 	// Update is called once per frame
@@ -56,6 +63,43 @@ public class Tank_Movement : MonoBehaviour
 
             // Rotate
             RotateBase();
+
+            // Sprint
+            if(inputDevice.LeftStickButton.IsPressed && sprintCooldown <= 0.0f && sprintTime <= 0.0f && !isSprint)
+            {
+                sprintTime = 5.0f;
+                isSprint = true;
+
+                maxSpeed *= 2.0f;
+            }
+
+            if(sprintTime > 0.0f)
+            {
+                sprintTime -= 1.0f * Time.deltaTime;
+
+                playerUI.sprintCooldown.color = new Color(playerUI.sprintCooldown.color.r, playerUI.sprintCooldown.color.g, playerUI.sprintCooldown.color.b, 0.1f);
+
+            }
+
+            if (isSprint && sprintTime <= 0.0f)
+            {
+                isSprint = false;
+                sprintCooldown = sprintCooldownTime;
+                maxSpeed /= 2.0f;
+            }
+
+            if (sprintCooldown > 0.0f)
+            {
+                sprintCooldown -= 1.0f * Time.deltaTime;
+                playerUI.sprintCooldown.color = new Color(playerUI.sprintCooldown.color.r, playerUI.sprintCooldown.color.g, playerUI.sprintCooldown.color.b, 0.1f);
+            }
+
+            if (sprintTime <= 0.0f && sprintCooldown <= 0.0f)
+            {
+                playerUI.sprintCooldown.color = new Color(playerUI.sprintCooldown.color.r, playerUI.sprintCooldown.color.g, playerUI.sprintCooldown.color.b, 0.8f);
+            }
+
+
         }
 
     }
