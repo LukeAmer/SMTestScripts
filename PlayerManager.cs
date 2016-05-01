@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour
     public List<GameObject> totalPlayers;
     public GameObject playerTank;
     public GameObject[] playerSpawns;
+    public Player_UIControl[] uiControls;
 
 	// Use this for initialization
 	void Start ()
@@ -36,6 +37,7 @@ public class PlayerManager : MonoBehaviour
                 {
                     // Spawn New Player Tank
                     GameObject newPlayer = Instantiate(playerTank, playerSpawns[totalPlayers.Count].transform.position, Quaternion.identity) as GameObject;
+                    newPlayer.transform.eulerAngles = playerSpawns[totalPlayers.Count].transform.eulerAngles;
 
                     connectedPlayers.Add(newPlayer.GetComponent<PlayerControl>());
                     totalPlayers.Add(newPlayer);
@@ -43,7 +45,10 @@ public class PlayerManager : MonoBehaviour
                     newPlayer.GetComponent<PlayerControl>().Device = inputDevice;
 
                     if (newPlayer.GetComponent<PlayerControl>().playerNumber == 100)
+                    {
                         newPlayer.GetComponent<PlayerControl>().playerNumber = totalPlayers.Count;
+                        newPlayer.GetComponent<Player_UI>().UIControl = uiControls[totalPlayers.Count - 1];
+                    }
                 }
 
             }
