@@ -111,7 +111,7 @@ public class Luke_TankShoot : MonoBehaviour
 
             if (cooldown > 0.0f)
             {
-                cooldown -= 1.0f * Time.deltatime;
+                cooldown -= 1.0f * Time.deltaTime;
             }
         }
 
