@@ -7,7 +7,7 @@ public class Weapons_Select : MonoBehaviour {
     public enum weapons
     {
         Standard,
-        ExtraDamage,
+        extraDamage,
 
 
     };
@@ -26,21 +26,13 @@ public class Weapons_Select : MonoBehaviour {
         scrollWeapons();
         if (numOfWeapons == 0)
         {
-           curWeaponState = weapons.Standard;
+            curWeaponState = weapons.Standard;
+            GameObject.Find("Bullet 1").GetComponent<BulletControl>().bulletDamage = 25;
         }
         if (numOfWeapons == 1)
         {
-            //curWeaponState = weapons.burstFire;
-            curWeaponState = weapons.ExtraDamage;
-
-        }
-        if (numOfWeapons == 2)
-        {
-            //curWeaponState = weapons.extraDamage ;
-        }
-        if (numOfWeapons == 3)
-        {
-            //curWeaponState = weapons.Kappa;
+            curWeaponState = weapons.extraDamage ;
+            GameObject.Find("Bullet 1").GetComponent<BulletControl>().bulletDamage = 40;
         }
     }
 

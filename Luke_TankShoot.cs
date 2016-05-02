@@ -33,13 +33,13 @@ public class Luke_TankShoot : MonoBehaviour
     AudioSource audioSource;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         audioSource = gameObject.GetComponent<AudioSource>();
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate ()
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
     {
         var inputDevice = playerControl.Device;
 
@@ -47,9 +47,6 @@ public class Luke_TankShoot : MonoBehaviour
         {
             if (inputDevice.RightTrigger.IsPressed && cooldown <= 0.0f)
             {
-                power += powerIncreaseRate * Time.deltaTime;
-               // Debug.Log(power);
-            }
                 // Power Up
                 turretPowerBar.SetBool("IncreasePowerBar", true);
 
@@ -68,27 +65,6 @@ public class Luke_TankShoot : MonoBehaviour
                 mats[0] = aimAidMats[playerControl.playerNumber - 1];
                 aimAid.GetComponent<LineRenderer>().materials = mats;
 
-        }
-        else
-        {
-            if(power > 10.0f && gameObject.GetComponent<Weapons_Select>().curWeaponState == Weapons_Select.weapons.Standard)
-            {
-                // Shoot
-                Shoot(bullet);
-                cooldown = cooldownTime;
-            }
-            if (power > 10.0f && gameObject.GetComponent<Weapons_Select>().curWeaponState == Weapons_Select.weapons.ExtraDamage)
-            {
-                // Shoot
-                Shoot(bullet);
-
-                // Set Cooldown
-                cooldown = cooldownTime;
-            }
-            power = 10.0f;
-            turretPowerBar.SetBool("IncreasePowerBar", false);
-            aimAid.GetComponent<LineRenderer>().enabled = false;
-        }
                 aimAid.GetComponent<LineRenderer>().enabled = true;
 
 
@@ -117,14 +93,15 @@ public class Luke_TankShoot : MonoBehaviour
 
     }
 
-    void Shoot(GameObject Projectile)
+    void Shoot()
     {
         Debug.Log("SHOOT!");
 
-        GameObject newBullet = Instantiate(Projectile, bulletSpawn.transform.position, Quaternion.identity) as GameObject;
+        GameObject newBullet = Instantiate(bullet, bulletSpawn.transform.position, Quaternion.identity) as GameObject;
         newBullet.transform.rotation = bulletSpawn.transform.rotation;
         newBullet.GetComponent<BulletControl>().playerNumber = playerControl.playerNumber;
         newBullet.GetComponent<Rigidbody>().AddForce(newBullet.transform.forward * power, ForceMode.Impulse);
+        newBullet.name = bullet.name;
 
         turretShootAnim.SetTrigger("Shoot");
         audioSource.PlayOneShot(shootSound);
