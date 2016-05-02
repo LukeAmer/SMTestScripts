@@ -4,6 +4,7 @@ using System.Collections;
 public class BulletControl : MonoBehaviour
 {
     public int bulletDamage = 25;
+    public float hitRadius = 5.0f;
     public GameObject hitEffect;
     public AudioClip hitSound;
 
@@ -44,6 +45,31 @@ public class BulletControl : MonoBehaviour
         gameObject.GetComponentInChildren<TrailRenderer>().gameObject.transform.parent = null;
 
         Destroy(audioSource, 5.0f);
+
+        // Look for Nearby Tank
+        Collider[] hitCols = Physics.OverlapSphere(gameObject.transform.position, hitRadius, 1 << 9, QueryTriggerInteraction.Collide);
+
+        if(hitCols.Length > 0)
+        {
+            for(int i = 0; i < hitCols.Length; i++)
+            {
+                if(hitCols[i].gameObject.tag == "Tank" && hitCols[i].gameObject.transform.parent.gameObject.GetComponent<PlayerControl>() != null)
+                {
+                    PlayerControl tankHit = hitCols[i].gameObject.transform.parent.gameObject.GetComponent<PlayerControl>();
+
+                    if (tankHit.playerNumber != playerNumber)
+                    {
+                        // Tank Hit
+                        tankHit.gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 5.0f, ForceMode.Impulse);
+
+                        tankHit.playerHealth -= bulletDamage / 2;
+
+                        Debug.Log("In-Direct hit!");
+                    }
+                }
+            }
+        }
+
 
         Destroy(gameObject);
     }

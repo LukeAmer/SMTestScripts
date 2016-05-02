@@ -30,7 +30,7 @@ public class CameraMovement : MonoBehaviour
 
             float dist = Vector3.Distance(playerManager.totalPlayers[0].transform.position, playerManager.totalPlayers[1].transform.position);
 
-            Debug.Log(Vector3.Distance(groundPos.transform.position, playerManager.totalPlayers[0].transform.position));
+            //Debug.Log(Vector3.Distance(groundPos.transform.position, playerManager.totalPlayers[0].transform.position));
             float player1Dist = Vector3.Distance(groundPos.transform.position, playerManager.totalPlayers[0].transform.position);
             float player2Dist = Vector3.Distance(groundPos.transform.position, playerManager.totalPlayers[1].transform.position);
 
