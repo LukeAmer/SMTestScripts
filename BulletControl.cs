@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BulletControl : MonoBehaviour
 {
-    public int bulletDamage = 25;
+    public int bulletDamage;
     public GameObject hitEffect;
     public AudioClip hitSound;
 
@@ -13,19 +13,42 @@ public class BulletControl : MonoBehaviour
     [SerializeField]
     GameObject bulletTrail;
 
-	// Use this for initialization
-	void Start ()
+    //GameObject weapons;
+    public Weapons_Select weapons;
+    // Use this for initialization
+    void Start ()
     {
         GameObject newTrail = Instantiate(bulletTrail, gameObject.transform.position, Quaternion.identity) as GameObject;
         newTrail.GetComponent<BulletTrail>().targetBullet = gameObject;
         newTrail.transform.parent = gameObject.transform;
-	}
+
+        //weapons = 
+
+ 
+
+
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate ()
     {
         if(gameObject.GetComponent<Rigidbody>().velocity.magnitude > 0.2f)
             transform.rotation = Quaternion.LookRotation(gameObject.GetComponent<Rigidbody>().velocity);
+    }
+
+    void Update()
+    {
+        if (weapons.curWeaponState == Weapons_Select.weapons.Standard)
+        {
+            bulletDamage = 25;
+        }
+        if (weapons.curWeaponState == Weapons_Select.weapons.ExtraDamage)
+        {
+            bulletDamage = 40;
+            Debug.Log("fuckoff");
+        }
+        Debug.Log(weapons.curWeaponState);
+        // Debug.Log(bulletDamage);
     }
 
     void OnCollisionEnter(Collision col)

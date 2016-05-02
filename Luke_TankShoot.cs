@@ -53,7 +53,7 @@ public class Luke_TankShoot : MonoBehaviour
             if(turretPowerBar.GetCurrentAnimatorStateInfo(0).IsName("PowerBar"))
             {
                 power += powerIncreaseRate * Time.deltaTime;
-                Debug.Log(power);
+               // Debug.Log(power);
             }
 
             
@@ -70,15 +70,22 @@ public class Luke_TankShoot : MonoBehaviour
         }
         else
         {
-            if(power > 10.0f)
+            if(power > 10.0f && gameObject.GetComponent<Weapons_Select>().curWeaponState == Weapons_Select.weapons.Standard)
             {
                 // Shoot
-                Shoot();
+                Shoot(bullet);
 
                 // Set Cooldown
                 cooldown = cooldownTime;
             }
+            if (power > 10.0f && gameObject.GetComponent<Weapons_Select>().curWeaponState == Weapons_Select.weapons.ExtraDamage)
+            {
+                // Shoot
+                Shoot(bullet);
 
+                // Set Cooldown
+                cooldown = cooldownTime;
+            }
             power = 10.0f;
             turretPowerBar.SetBool("IncreasePowerBar", false);
             aimAid.GetComponent<LineRenderer>().enabled = false;
@@ -91,11 +98,11 @@ public class Luke_TankShoot : MonoBehaviour
 
     }
 
-    void Shoot()
+    void Shoot(GameObject Projectile)
     {
         Debug.Log("SHOOT!");
 
-        GameObject newBullet = Instantiate(bullet, bulletSpawn.transform.position, Quaternion.identity) as GameObject;
+        GameObject newBullet = Instantiate(Projectile, bulletSpawn.transform.position, Quaternion.identity) as GameObject;
         newBullet.transform.rotation = bulletSpawn.transform.rotation;
         newBullet.GetComponent<BulletControl>().playerNumber = playerControl.playerNumber;
         newBullet.GetComponent<Rigidbody>().AddForce(newBullet.transform.forward * power, ForceMode.Impulse);

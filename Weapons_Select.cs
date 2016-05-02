@@ -7,13 +7,11 @@ public class Weapons_Select : MonoBehaviour {
     public enum weapons
     {
         Standard,
-        burstFire,
-        extraDamage,
-        Kappa
+        ExtraDamage,
 
 
     };
-    public int numOfWeapons = 3;
+    public int numOfWeapons = 1;
     public weapons curWeaponState;
 
 	// Use this for initialization
@@ -28,20 +26,21 @@ public class Weapons_Select : MonoBehaviour {
         scrollWeapons();
         if (numOfWeapons == 0)
         {
-            curWeaponState = weapons.Standard;
+           curWeaponState = weapons.Standard;
         }
         if (numOfWeapons == 1)
         {
-            curWeaponState = weapons.burstFire;
+            //curWeaponState = weapons.burstFire;
+            curWeaponState = weapons.ExtraDamage;
 
         }
         if (numOfWeapons == 2)
         {
-            curWeaponState = weapons.extraDamage ;
+            //curWeaponState = weapons.extraDamage ;
         }
         if (numOfWeapons == 3)
         {
-            curWeaponState = weapons.Kappa;
+            //curWeaponState = weapons.Kappa;
         }
     }
 
@@ -58,9 +57,9 @@ public class Weapons_Select : MonoBehaviour {
             numOfWeapons -= 1;
         }
 
-        if (numOfWeapons > 3)
+        if (numOfWeapons > 1)
         {
-            numOfWeapons = 3;
+            numOfWeapons = 1;
         }
         else if (numOfWeapons < 0)
         {
