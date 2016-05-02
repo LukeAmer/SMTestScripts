@@ -47,14 +47,11 @@ public class Luke_TankShoot : MonoBehaviour
         {
             if (inputDevice.RightTrigger.IsPressed && cooldown <= 0.0f)
             {
-<<<<<<< HEAD
                 power += powerIncreaseRate * Time.deltaTime;
                // Debug.Log(power);
             }
-=======
                 // Power Up
                 turretPowerBar.SetBool("IncreasePowerBar", true);
->>>>>>> refs/remotes/origin/master
 
                 // Still increasing?
                 if (turretPowerBar.GetCurrentAnimatorStateInfo(0).IsName("PowerBar"))
@@ -71,7 +68,6 @@ public class Luke_TankShoot : MonoBehaviour
                 mats[0] = aimAidMats[playerControl.playerNumber - 1];
                 aimAid.GetComponent<LineRenderer>().materials = mats;
 
-<<<<<<< HEAD
         }
         else
         {
@@ -79,8 +75,6 @@ public class Luke_TankShoot : MonoBehaviour
             {
                 // Shoot
                 Shoot(bullet);
-
-                // Set Cooldown
                 cooldown = cooldownTime;
             }
             if (power > 10.0f && gameObject.GetComponent<Weapons_Select>().curWeaponState == Weapons_Select.weapons.ExtraDamage)
@@ -95,7 +89,6 @@ public class Luke_TankShoot : MonoBehaviour
             turretPowerBar.SetBool("IncreasePowerBar", false);
             aimAid.GetComponent<LineRenderer>().enabled = false;
         }
-=======
                 aimAid.GetComponent<LineRenderer>().enabled = true;
 
 
@@ -115,7 +108,6 @@ public class Luke_TankShoot : MonoBehaviour
                 turretPowerBar.SetBool("IncreasePowerBar", false);
                 aimAid.GetComponent<LineRenderer>().enabled = false;
             }
->>>>>>> refs/remotes/origin/master
 
             if (cooldown > 0.0f)
             {
