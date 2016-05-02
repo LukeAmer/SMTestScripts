@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using InControl;
+using System.Collections.Generic;
 
 public class Weapons_Select : MonoBehaviour {
 
+    List<GameObject> Projectiles = new List<GameObject>();
     public enum weapons
     {
         Standard,
@@ -27,12 +29,13 @@ public class Weapons_Select : MonoBehaviour {
         if (numOfWeapons == 0)
         {
             curWeaponState = weapons.Standard;
-            GameObject.Find("Bullet 1").GetComponent<BulletControl>().bulletDamage = 25;
+            gameObject.GetComponent<Luke_TankShoot>()._bulletDamage = 25;
+            
         }
         if (numOfWeapons == 1)
         {
             curWeaponState = weapons.extraDamage ;
-            GameObject.Find("Bullet 1").GetComponent<BulletControl>().bulletDamage = 40;
+            gameObject.GetComponent<Luke_TankShoot>()._bulletDamage = 40;
         }
     }
 

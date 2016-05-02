@@ -6,7 +6,7 @@ public class Luke_TankShoot : MonoBehaviour
 {
     public float powerIncreaseRate = 5.0f;
     public float cooldownTime = 1.0f;
-
+    public int _bulletDamage = 5;
     [SerializeField]
     GameObject bullet;
     [SerializeField]
@@ -102,6 +102,7 @@ public class Luke_TankShoot : MonoBehaviour
         newBullet.GetComponent<BulletControl>().playerNumber = playerControl.playerNumber;
         newBullet.GetComponent<Rigidbody>().AddForce(newBullet.transform.forward * power, ForceMode.Impulse);
         newBullet.name = bullet.name;
+        newBullet.GetComponent<BulletControl>().bulletDamage = _bulletDamage;
 
         turretShootAnim.SetTrigger("Shoot");
         audioSource.PlayOneShot(shootSound);
